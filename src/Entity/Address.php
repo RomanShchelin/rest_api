@@ -77,6 +77,33 @@ class Address implements \JsonSerializable
 
 
     /**
+     * @var Street
+     *
+     * @ORM\ManyToOne(cascade="persist", targetEntity="Street", inversedBy="address")
+     * @ORM\JoinColumn(name="street_id", referencedColumnName="id")
+     */
+    protected $street;
+
+    /**
+     * @return mixed
+     */
+    public function getStreet()
+    {
+        return $this->street;
+    }
+
+    /**
+     * @param Street $street
+     * @return self
+     */
+    public function setStreet(Street $street): self
+    {
+        $this->street = $street;
+        return $this;
+    }
+
+
+    /**
      * @return mixed
      */
     public function getId()
@@ -290,7 +317,8 @@ class Address implements \JsonSerializable
             "intercom" => $this->getIntercom(),
             "apartment" => $this->getApartment(),
             "title" => $this->getTitle(),
-            "city" => $this->getCity()
+            "city" => $this->getCity(),
+            "street" => $this->getStreet()
         ];
     }
 }

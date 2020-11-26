@@ -51,7 +51,6 @@ class Street implements \JsonSerializable
         $this->id = $id;
     }
 
-
     /**
      * @return mixed
      */

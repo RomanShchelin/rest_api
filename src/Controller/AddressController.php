@@ -61,10 +61,6 @@ class AddressController extends AbstractController
         try {
             $request = $this->transformJsonBody($request);
 
-//            if (!$request || !$request->get('name') || !$request->request->get('description')) {
-//                throw new \Exception();
-//            }
-
             $address = new Address();
             $address->setClient_id($request->get('client_id'));
             $address->setValue($request->get('value'));
@@ -91,10 +87,31 @@ class AddressController extends AbstractController
             $data = [
                 'status' => 422,
                 'errors' => "Data no valid",
+                'e' => $e->getMessage()
             ];
             return $this->response($data, 422);
         }
 
+    }
+
+    /**
+     * @param AddressRepository $addressRepository
+     * @param $client_id
+     * @return JsonResponse
+     * @Route("/client-address/{client_id}", name="client-address_get", methods={"GET"})
+     */
+    public function getClientAddresses(AddressRepository $addressRepository, $client_id)
+    {
+        $address = $addressRepository->findBy(['client_id' => $client_id]);
+
+        if (!$address) {
+            $data = [
+                'status' => 404,
+                'errors' => "Address not found",
+            ];
+            return $this->response($data, 404);
+        }
+        return $this->response($address);
     }
 
     /**
@@ -119,10 +136,6 @@ class AddressController extends AbstractController
             }
 
             $request = $this->transformJsonBody($request);
-
-//            if (!$request || !$request->get('name') || !$request->request->get('description')) {
-//                throw new \Exception();
-//            }
 
             $address->setClient_id($request->get('client_id'));
             $address->setValue($request->get('value'));

@@ -61,10 +61,6 @@ class StreetController extends AbstractController
         try {
             $request = $this->transformJsonBody($request);
 
-//            if (!$request || !$request->get('name') || !$request->request->get('description')) {
-//                throw new \Exception();
-//            }
-
             $street = new Street();
             $street->setValue($request->get('value'));
             $street->setRegionId($request->get('regionId'));
@@ -111,10 +107,6 @@ class StreetController extends AbstractController
             }
 
             $request = $this->transformJsonBody($request);
-
-//            if (!$request || !$request->get('name') || !$request->request->get('description')) {
-//                throw new \Exception();
-//            }
 
             $street->setValue($request->get('value'));
             $street->setRegionId($request->get('regionId'));
@@ -190,5 +182,4 @@ class StreetController extends AbstractController
 
         return $request;
     }
-
 }
